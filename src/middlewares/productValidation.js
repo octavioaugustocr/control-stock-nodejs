@@ -16,12 +16,14 @@ const validateProductData = (req, res, next) => {
     const errors = [];
     
     for (const field of requiredFields) {
-        if (product.hasOwnProperty(field.name) || product[field.name] === null || product[field.name] === undefined) {
+        if (!product.hasOwnProperty(field.name) || product[field.name] === null || product[field.name] === undefined) {
             errors.push(`The field '${field.name}' is required.`);
         } else if (field.type === 'number' && isNaN(Number(product[field.name]))) {
             errors.push(`The field '${field.name}' must be a number.`);
         } else if (field.type === 'string' && typeof product[field.name] !== 'string') {
             errors.push(`The field '${field.name}' must be a string.`);
+        } else if (field.type === 'string' && product[field.name].trim() === "") {
+            errors.push(`The field '${field.name}' cannot be empty.`);
         }
     }
     
@@ -29,6 +31,10 @@ const validateProductData = (req, res, next) => {
         if (product.hasOwnProperty(field.name) && product[field.name] !== null && product[field.name] !== undefined) {
             if (field.type === 'string' && typeof product[field.name] !== 'string') {
                 errors.push(`The field '${field.name}' must be a string.`);
+            }
+
+            if (field.type === 'string' && product[field.name].trim() === "") {
+                errors.push(`The field '${field.name}' cannot be empty.`);
             }
             
             if (field.name === 'due_date' && product[field.name]) {

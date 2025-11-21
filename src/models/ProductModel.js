@@ -26,7 +26,7 @@ class ProductModel {
         const { name, price, flavor, mark, manufacturer, due_date, quantity_stock } = product;
 
         const [result] = await pool.query(
-            'UPDATE products SET name = ?, price = ?, flavor = ?, manufacturer = ?, due_date = ?, quantity_stock = ? WHERE id_product = ?', [name, price, flavor, mark, manufacturer, due_date, quantity_stock, id]
+            'UPDATE products SET name = ?, price = ?, flavor = ?, mark = ?, manufacturer = ?, due_date = ?, quantity_stock = ? WHERE id_product = ?', [name, price, flavor, mark, manufacturer, due_date, quantity_stock, id]
         );
 
         return result.affectedRows > 0;
