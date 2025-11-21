@@ -10,24 +10,24 @@ const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
 
-app.use('/api/products', productRoutes);
+app.use('/v1/products', productRoutes);
 
 app.get('/', (req, res) => {
     res.status(200).json({
         message: 'API running!',
         endpoints: [
-            'GET /api/products',
-            'GET /api/products/:id',
-            'POST /api/products',
-            'PUT /api/products/:id',
-            'DELETE /api/products/:id'
+            'GET /v1/products',
+            'GET /v1/products/:id',
+            'POST /v1/products',
+            'PUT /v1/products/:id',
+            'DELETE /v1/products/:id'
         ]
     })
 });
 
 app.use((req, res, next) => {
     const error = new Error('Route not found!')
-    error.status = 404;
+    error.statusCode = 404;
     next(error);
 });
 

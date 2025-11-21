@@ -16,7 +16,7 @@ class ProductModel {
         const { name, price, flavor, mark, manufacturer, due_date, quantity_stock } = product;
 
         const [result] = await pool.query(
-            'INSERT INTO products (name, price, flavor, mark, manufacturer, due_data, quantity_stock) VALUES (?, ?, ?, ?, ?, ?, ?)', [name, price, flavor, mark, manufacturer, due_data, quantity_stock]
+            'INSERT INTO products (name, price, flavor, mark, manufacturer, due_date, quantity_stock) VALUES (?, ?, ?, ?, ?, ?, ?)', [name, price, flavor, mark, manufacturer, due_date, quantity_stock]
         );
 
         return { id: result.insertId, ...product };
@@ -25,8 +25,8 @@ class ProductModel {
     static async update(id, product) {
         const { name, price, flavor, mark, manufacturer, due_date, quantity_stock } = product;
 
-        const [result] = pool.query(
-            'UPDATE products SET name = ?, price = ?, flavor = ?, manufacturer = ?, due_data = ?, quantity_stock = ? WHERE id_product = ?', [name, price, flavor, mark, manufacturer, due_date, quantity_stock, id]
+        const [result] = await pool.query(
+            'UPDATE products SET name = ?, price = ?, flavor = ?, manufacturer = ?, due_date = ?, quantity_stock = ? WHERE id_product = ?', [name, price, flavor, mark, manufacturer, due_date, quantity_stock, id]
         );
 
         return result.affectedRows > 0;

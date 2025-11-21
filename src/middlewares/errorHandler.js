@@ -6,7 +6,7 @@ const errorHandler = (err, req, res, next) => {
     const message = err.message || 'An unexpected error occurred on the server.';
 
     res.status(statusCode).json({
-        stats: 'error',
+        status: 'error',
         statusCode,
         message
     });
